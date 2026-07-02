@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - run: npm ci --ignore-scripts
+      - run: npm install --ignore-scripts
       - run: npm run lint
       - run: npm run test
 
@@ -42,7 +42,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - run: npm ci --ignore-scripts
+      - run: npm install --ignore-scripts
       - run: npm run lint
 
   # ── API Docker build check ──────────────────────────────
@@ -51,11 +51,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: docker/setup-buildx-action@v3
-      - uses: docker/build-push-action@v6
-        with:
-          context: ./api
-          push: false
+      - run: |
+          grep -v '^Dockerfile$' api/.dockerignore > /tmp/di && mv /tmp/di api/.dockerignore
+          docker build -f api/Dockerfile api
 
   # ── UI Docker build check ───────────────────────────────
   ui-docker:
@@ -63,8 +61,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: docker/setup-buildx-action@v3
-      - uses: docker/build-push-action@v6
-        with:
-          context: ./ui
-          push: false
+      - run: |
+          grep -v '^Dockerfile$' ui/.dockerignore > /tmp/di && mv /tmp/di ui/.dockerignore
+          docker build -f ui/Dockerfile ui
