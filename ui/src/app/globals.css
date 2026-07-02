@@ -1,0 +1,181 @@
+@import "tailwindcss";
+
+@theme {
+  /* OpenJob Professional Marketplace tokens */
+  --color-oj-primary: #001e40;
+  --color-oj-primary-container: #003366;
+  --color-oj-on-primary: #ffffff;
+  --color-oj-primary-fixed-dim: #a8c8e8;
+  --color-oj-primary-light: #d5e3ff;
+  --color-oj-primary-dark: #001e40;
+  --color-oj-accent: #10B981;
+  --color-oj-accent-light: #d1fae5;
+  --color-oj-bg: #F9FAFB;
+  --color-oj-surface: #FFFFFF;
+  --color-oj-border: #E5E7EB;
+  --color-oj-text: #111827;
+  --color-oj-text-secondary: #4B5563;
+  --color-oj-error: #EF4444;
+  --color-oj-error-light: #fef2f2;
+  --color-oj-warning: #F59E0B;
+  --color-oj-success: #10B981;
+  --color-oj-surface-container-low: #f4f3f8;
+
+  /* Stitch design tokens */
+  --color-bg-page: #F9FAFB;
+  --color-bg-surface: #FFFFFF;
+  --color-border-slate: #E5E7EB;
+  --color-text-secondary: #4B5563;
+  --color-text-primary: #111827;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #003366;
+  --color-secondary: #006c49;
+  --color-secondary-container: #6cf8bb;
+  --color-error-red: #EF4444;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+  --color-outline: #737780;
+  --color-outline-variant: #c3c6d1;
+  --color-surface-container-high: #e8e8ed;
+  --color-surface-container: #eeedf2;
+  --color-surface-container-low: #f4f3f8;
+  --color-surface-container-highest: #e2e2e7;
+  --color-on-surface: #1a1c1f;
+  --color-on-surface-variant: #43474f;
+  --color-primary-fixed: #d5e3ff;
+  --color-primary-fixed-dim: #a7c8ff;
+  --color-on-primary-fixed: #001b3c;
+  --color-on-secondary: #ffffff;
+  --color-on-secondary-fixed: #002113;
+  --color-sidebar-navy: #003366;
+  --color-border-subtle: #E2E8F0;
+  --color-status-open: #10B981;
+  --color-status-pending: #F59E0B;
+  --color-status-closed: #64748B;
+  --color-status-rejected: #EF4444;
+  --color-status-accepted: #3B82F6;
+  --color-secondary-fixed: #6ffbbe;
+  --color-on-primary-container: #799dd6;
+  --color-background-recruiter: #f7f9fb;
+  --color-surface-container-recruiter: #eceef0;
+  --color-surface: #f7f9fb;
+  --color-surface-container-lowest: #ffffff;
+  --color-tertiary: #381300;
+  --color-tertiary-fixed-dim: #ffb690;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+
+  /* shadcn/ui semantic tokens */
+  --color-background: var(--color-oj-bg);
+  --color-foreground: var(--color-oj-text);
+  --color-card: var(--color-oj-surface);
+  --color-card-foreground: var(--color-oj-text);
+  --color-popover: var(--color-oj-surface);
+  --color-popover-foreground: var(--color-oj-text);
+  --color-primary: var(--color-oj-primary);
+  --color-primary-foreground: #fff;
+  --color-secondary: #006c49;
+  --color-secondary-foreground: #fff;
+  --color-muted: var(--color-oj-bg);
+  --color-muted-foreground: var(--color-oj-text-secondary);
+  --color-accent: #006c49;
+  --color-accent-foreground: #fff;
+  --color-destructive: var(--color-oj-error);
+  --color-destructive-foreground: #fff;
+  --color-border: var(--color-oj-border);
+  --color-input: var(--color-oj-border);
+  --color-ring: var(--color-oj-primary);
+}
+
+@layer utilities {
+  .oj-shadow {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  }
+  .oj-shadow-md {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Base styles */
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  @apply antialiased;
+  background: var(--color-oj-bg);
+  min-height: 100dvh;
+}
+
+/* Focus visible for accessibility */
+*:focus-visible {
+  @apply outline-none ring-2 ring-oj-primary ring-offset-2;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--color-oj-border); }
+::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--color-oj-primary) 35%, var(--color-oj-border)); border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--color-oj-border) 70%, #000);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.animate-fade-in-up { animation: fadeInUp 0.4s ease both; }
+.animate-fade-in { animation: fadeIn 0.3s ease both; }
+.animate-slide-in-left { animation: slideInLeft 0.3s ease both; }
+.animate-slide-in-right { animation: slideInRight 0.3s ease both; }
+.animate-pulse-soft { animation: pulse-soft 2s ease-in-out infinite; }
+
+/* Page transition — enter only, no exit gap */
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-transition {
+  animation: pageEnter 0.25s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+.animate-float { animation: float 3s ease-in-out infinite; }
+
+/* ═══ A11y guards ═══ */
+@media (prefers-reduced-motion: no-preference) {
+  .animate-gradient { background-size: 200% 200%; animation: gradientShift 3s ease infinite; }
+}

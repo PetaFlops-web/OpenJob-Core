@@ -1,0 +1,17 @@
+{
+  "name": "open-job-consumer",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "dependencies": {
+    "amqplib": "^0.10.9",
+    "dotenv": "^17.2.3",
+    "nodemailer": "^7.0.10",
+    "pg": "^8.16.3",
+    "redis": "^5.9.0"
+  }
+}
