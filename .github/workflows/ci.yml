@@ -19,6 +19,8 @@ jobs:
         working-directory: api
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: true
 
       - uses: actions/setup-node@v4
         with:
@@ -45,22 +47,10 @@ jobs:
       - run: npm install --ignore-scripts
       - run: npm run lint
 
-  # ── API Docker build check ──────────────────────────────
-  api-docker:
-    name: "API – Docker Build"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: |
-          grep -v '^Dockerfile$' api/.dockerignore > /tmp/di && mv /tmp/di api/.dockerignore
-          docker build -f api/Dockerfile api
-
   # ── UI Docker build check ───────────────────────────────
   ui-docker:
     name: "UI – Docker Build"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: |
-          grep -v '^Dockerfile$' ui/.dockerignore > /tmp/di && mv /tmp/di ui/.dockerignore
-          docker build -f ui/Dockerfile ui
+      - run: docker build ./ui

@@ -1,0 +1,38 @@
+{
+  "application_received": {
+    "subject": "Lamaran Baru Diterima - {{jobTitle}}",
+    "greeting": "Yth. {{companyName}},",
+    "body": "Lamaran baru telah diterima untuk posisi: {{jobTitle}}",
+    "applicant": "Pelamar: {{applicantName}}",
+    "cta": "Silakan tinjau lamaran di dashboard Anda"
+  },
+  "application_status": {
+    "subject": "Pembaruan Status Lamaran - {{jobTitle}}",
+    "greeting": "Yth. {{applicantName}},",
+    "body": "Status lamaran Anda telah diperbarui",
+    "status": "Status baru: {{status}}",
+    "job": "Posisi: {{jobTitle}}"
+  },
+  "interview_scheduled": {
+    "subject": "Wawancara Dijadwalkan - {{jobTitle}}",
+    "greeting": "Yth. {{applicantName}},",
+    "body": "Wawancara telah dijadwalkan untuk posisi: {{jobTitle}}",
+    "datetime": "Tanggal & Waktu: {{scheduledAt}}",
+    "type": "Jenis Wawancara: {{interviewType}}",
+    "location": "Lokasi: {{location}}",
+    "cta": "Silakan bersiap untuk wawancara"
+  },
+  "interview_reminder": {
+    "subject": "Pengingat Wawancara - {{jobTitle}}",
+    "greeting": "Yth. {{applicantName}},",
+    "body": "Ini adalah pengingat bahwa wawancara Anda akan dimulai dalam {{timeUntil}}",
+    "job": "Posisi: {{jobTitle}}",
+    "datetime": "Tanggal & Waktu: {{scheduledAt}}"
+  },
+  "interview_cancelled": {
+    "subject": "Wawancara Dibatalkan - {{jobTitle}}",
+    "greeting": "Yth. {{applicantName}},",
+    "body": "Wawancara untuk {{jobTitle}} telah dibatalkan",
+    "reason": "Alasan: {{reason}}"
+  }
+}

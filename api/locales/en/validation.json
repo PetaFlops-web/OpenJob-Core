@@ -1,0 +1,23 @@
+{
+  "required": "{{field}} is required",
+  "email": "Invalid email format",
+  "min": "{{field}} must be at least {{min}} characters",
+  "max": "{{field}} must not exceed {{max}} characters",
+  "pattern": "{{field}} format is invalid",
+  "uri": "{{field}} must be a valid URI",
+  "enum": "{{field}} must be one of: {{values}}",
+  "string": "{{field}} must be a string",
+  "number": "{{field}} must be a number",
+  "integer": "{{field}} must be an integer",
+  "minNumber": "{{field}} must be at least {{min}}",
+  "maxNumber": "{{field}} must not exceed {{max}}",
+  "boolean": "{{field}} must be a boolean",
+  "array": "{{field}} must be an array",
+  "object": "{{field}} must be an object",
+  "unknown": "{{field}} is not allowed",
+  "invalid": "{{field}} is invalid",
+  "date": "{{field}} must be a valid date",
+  "future": "{{field}} must be a future date",
+  "past": "{{field}} must be a past date",
+  "positive": "{{field}} must be positive"
+}

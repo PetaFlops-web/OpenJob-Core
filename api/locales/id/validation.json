@@ -1,0 +1,23 @@
+{
+  "required": "{{field}} wajib diisi",
+  "email": "Format email tidak valid",
+  "min": "{{field}} minimal {{min}} karakter",
+  "max": "{{field}} maksimal {{max}} karakter",
+  "pattern": "Format {{field}} tidak valid",
+  "uri": "{{field}} harus berupa URI yang valid",
+  "enum": "{{field}} harus salah satu dari: {{values}}",
+  "string": "{{field}} harus berupa teks",
+  "number": "{{field}} harus berupa angka",
+  "integer": "{{field}} harus berupa bilangan bulat",
+  "minNumber": "{{field}} minimal {{min}}",
+  "maxNumber": "{{field}} maksimal {{max}}",
+  "boolean": "{{field}} harus berupa boolean",
+  "array": "{{field}} harus berupa array",
+  "object": "{{field}} harus berupa objek",
+  "unknown": "{{field}} tidak diperbolehkan",
+  "invalid": "{{field}} tidak valid",
+  "date": "{{field}} harus berupa tanggal yang valid",
+  "future": "{{field}} harus berupa tanggal di masa depan",
+  "past": "{{field}} harus berupa tanggal di masa lalu",
+  "positive": "{{field}} harus positif"
+}

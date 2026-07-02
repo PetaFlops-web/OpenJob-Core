@@ -1,0 +1,38 @@
+{
+  "application_received": {
+    "subject": "New Application Received - {{jobTitle}}",
+    "greeting": "Dear {{companyName}},",
+    "body": "A new application has been received for the position: {{jobTitle}}",
+    "applicant": "Applicant: {{applicantName}}",
+    "cta": "Please review the application in your dashboard"
+  },
+  "application_status": {
+    "subject": "Application Status Update - {{jobTitle}}",
+    "greeting": "Dear {{applicantName}},",
+    "body": "Your application status has been updated",
+    "status": "New status: {{status}}",
+    "job": "Position: {{jobTitle}}"
+  },
+  "interview_scheduled": {
+    "subject": "Interview Scheduled - {{jobTitle}}",
+    "greeting": "Dear {{applicantName}},",
+    "body": "An interview has been scheduled for the position: {{jobTitle}}",
+    "datetime": "Date & Time: {{scheduledAt}}",
+    "type": "Interview Type: {{interviewType}}",
+    "location": "Location: {{location}}",
+    "cta": "Please prepare for the interview"
+  },
+  "interview_reminder": {
+    "subject": "Interview Reminder - {{jobTitle}}",
+    "greeting": "Dear {{applicantName}},",
+    "body": "This is a reminder that your interview is in {{timeUntil}}",
+    "job": "Position: {{jobTitle}}",
+    "datetime": "Date & Time: {{scheduledAt}}"
+  },
+  "interview_cancelled": {
+    "subject": "Interview Cancelled - {{jobTitle}}",
+    "greeting": "Dear {{applicantName}},",
+    "body": "The interview for {{jobTitle}} has been cancelled",
+    "reason": "Reason: {{reason}}"
+  }
+}
