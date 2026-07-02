@@ -55,7 +55,6 @@ jobs:
       - uses: docker/build-push-action@v6
         with:
           context: ./api
-          file: ./api/Dockerfile
           push: false
 
   # ── UI Docker build check ───────────────────────────────
@@ -68,5 +67,4 @@ jobs:
       - uses: docker/build-push-action@v6
         with:
           context: ./ui
-          file: ./ui/Dockerfile
           push: false
