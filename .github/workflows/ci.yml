@@ -7,9 +7,10 @@ on:
     branches: [main]
 
 env:
-  NODE_VERSION: "20"
+  NODE_VERSION: "24"
 
 jobs:
+  # ── API: lint + test ────────────────────────────────────
   api:
     name: "API – Lint & Test"
     runs-on: ubuntu-latest
@@ -29,6 +30,7 @@ jobs:
       - run: npm run lint
       - run: npm run test
 
+  # ── UI: lint ────────────────────────────────────────────
   ui:
     name: "UI – Lint"
     runs-on: ubuntu-latest
@@ -47,6 +49,7 @@ jobs:
       - run: npm ci --ignore-scripts
       - run: npm run lint
 
+  # ── API Docker build check ──────────────────────────────
   api-docker:
     name: "API – Docker Build"
     runs-on: ubuntu-latest
@@ -60,6 +63,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+  # ── UI Docker build check ───────────────────────────────
   ui-docker:
     name: "UI – Docker Build"
     runs-on: ubuntu-latest
