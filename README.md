@@ -1,8 +1,8 @@
 # Open-Job
 
-Modern job portal platform connecting job seekers with recruiters. Monorepo containing REST API, frontend, background consumer, and ML-powered ATS (Applicant Tracking System) scoring.
+Platform portal kerja modern yang menghubungkan pencari kerja dengan perusahaan. Monorepo berisi REST API, frontend, consumer background, dan scoring ATS (Applicant Tracking System) berbasis ML.
 
-## Architecture
+## Arsitektur
 
 ```
 ┌──────────┐     ┌──────────┐     ┌──────────────┐
@@ -26,43 +26,43 @@ Modern job portal platform connecting job seekers with recruiters. Monorepo cont
 | **consumer/** | Node.js, RabbitMQ, Nodemailer     | —     |
 | **ats/**   | Flask, PyTorch, sentence-transformers | 5000  |
 
-## Key Features
+## Fitur Utama
 
-- **Authentication** — JWT (access + refresh tokens), MFA (TOTP), session management, Firebase social login
-- **Role-based access** — Jobseeker and Recruiter roles with scoped endpoints
-- **Job management** — CRUD, search, categories, bookmarks
-- **Applications** — Apply to jobs with CV, status tracking, ATS score integration
-- **ATS scoring** — ML model (MiniLM regressor) analyzes PDF CVs against job descriptions
-- **Interviews** — Scheduling, availability, reminders via RabbitMQ consumer
-- **Notifications** — Real-time via Socket.IO + Redis adapter, email via consumer
-- **Documents** — PDF CV upload/download, per-user storage
-- **Companies** — Profiles with logo uploads
-- **Skills** — Jobseeker skill management, recruiter visibility
-- **i18n** — Multi-language support (i18next)
-- **API docs** — Swagger/OpenAPI 3.0 at `/docs`
+- **Autentikasi** — JWT (access + refresh token), MFA (TOTP), manajemen sesi, login sosial Firebase
+- **Akses berbasis peran** — Peran Pencari Kerja dan Rekruter dengan endpoint terbatas
+- **Manajemen lowongan** — CRUD, pencarian, kategori, bookmark
+- **Lamaran** — Melamar pekerjaan dengan CV, pelacakan status, integrasi skor ATS
+- **Scoring ATS** — Model ML (MiniLM regressor) menganalisis CV PDF terhadap deskripsi pekerjaan
+- **Wawancara** — Penjadwalan, ketersediaan, pengingat via consumer RabbitMQ
+- **Notifikasi** — Realtime via Socket.IO + adapter Redis, email via consumer
+- **Dokumen** — Upload/download CV PDF, penyimpanan per-pengguna
+- **Perusahaan** — Profil dengan upload logo
+- **Keahlian** — Manajemen keahlian pencari kerja, visibilitas untuk rekruter
+- **i18n** — Dukungan multi-bahasa (i18next)
+- **Dokumentasi API** — Swagger/OpenAPI 3.0 di `/docs`
 
-## Quick Start
+## Mulai Cepat
 
-### Docker (recommended)
+### Docker (disarankan)
 
 ```bash
 git clone https://github.com/PetaFlops-web/Open-Job.git
 cd Open-Job
 
-# Copy and edit environment variables
+# Salin dan edit variabel lingkungan
 cp api/.env.example api/.env
 
 docker compose up -d
 ```
 
-Services will be available at:
+Layanan akan tersedia di:
 - UI: http://localhost:3000
 - API: http://localhost:3001
 - Swagger: http://localhost:3001/docs
 - RabbitMQ Management: http://localhost:15673 (guest/guest)
 - ATS ML: http://localhost:5000
 
-### Local Development
+### Pengembangan Lokal
 
 ```bash
 # API
@@ -70,39 +70,39 @@ cd api && cp .env.example .env && npm install
 npm run migrate:up
 npm run start:dev
 
-# UI (separate terminal)
+# UI (terminal terpisah)
 cd ui && npm install && npm run dev
 
-# Consumer (separate terminal)
+# Consumer (terminal terpisah)
 cd consumer && npm install && npm start
 ```
 
-Requires Node.js 24+, PostgreSQL 16, Redis 7, and RabbitMQ 4 running locally.
+Memerlukan Node.js 24+, PostgreSQL 16, Redis 7, dan RabbitMQ 4 yang berjalan secara lokal.
 
-### Seed Demo Data
+### Seed Data Demo
 
 ```bash
 cd api
 npm run seed
 ```
 
-Creates 5 users (3 jobseekers, 2 recruiters), 6 categories, 3 companies, 6 jobs, applications, interviews, bookmarks, and notifications. Password for all seeded accounts: `password123`.
+Membuat 5 pengguna (3 pencari kerja, 2 rekruter), 6 kategori, 3 perusahaan, 6 lowongan, lamaran, wawancara, bookmark, dan notifikasi. Kata sandi untuk semua akun demo: `password123`.
 
-| Role      | Email                         |
-|-----------|-------------------------------|
-| Jobseeker | dimas.pratama@email.com       |
-| Jobseeker | siti.nurhaliza@email.com      |
-| Jobseeker | budi.santoso@email.com        |
-| Recruiter | rina.wijaya@email.com         |
-| Recruiter | ahmad.hidayat@email.com       |
+| Peran        | Email                         |
+|--------------|-------------------------------|
+| Pencari Kerja | dimas.pratama@email.com       |
+| Pencari Kerja | siti.nurhaliza@email.com      |
+| Pencari Kerja | budi.santoso@email.com        |
+| Rekruter     | rina.wijaya@email.com         |
+| Rekruter     | ahmad.hidayat@email.com       |
 
-## Project Structure
+## Struktur Proyek
 
 ```
 Open-Job/
-├── api/                 # Express REST API
+├── api/                 # REST API Express
 │   ├── src/
-│   │   ├── routes/      # Route definitions with JSDoc/Swagger annotations
+│   │   ├── routes/      # Definisi route dengan anotasi JSDoc/Swagger
 │   │   ├── applications/
 │   │   ├── jobs/
 │   │   ├── companies/
@@ -113,65 +113,65 @@ Open-Job/
 │   │   ├── profile/
 │   │   ├── users/
 │   │   ├── authentications/
-│   │   ├── security/    # MFA, sessions, Firebase
-│   │   ├── ats/         # ATS integration
+│   │   ├── security/    # MFA, sesi, Firebase
+│   │   ├── ats/         # Integrasi ATS
 │   │   ├── middlewares/
-│   │   ├── cache/       # Redis service
-│   │   ├── ws/          # Socket.IO realtime
-│   │   ├── export/      # RabbitMQ producer
+│   │   ├── cache/       # Layanan Redis
+│   │   ├── ws/          # Realtime Socket.IO
+│   │   ├── export/      # Producer RabbitMQ
 │   │   └── i18n/
 │   ├── migrations/      # node-pg-migrate
 │   ├── scripts/         # seed.js
-│   └── tests/           # Vitest test suite
-├── ui/                  # Next.js frontend
+│   └── tests/           # Suite test Vitest
+├── ui/                  # Frontend Next.js
 │   └── src/
-│       ├── app/         # App Router pages
+│       ├── app/         # Halaman App Router
 │       ├── components/
 │       ├── hooks/
 │       ├── lib/
 │       └── providers/
-├── consumer/            # RabbitMQ background worker
-│   ├── index.js         # Entry point
-│   ├── Listener.js      # Queue consumer
-│   ├── MailSender.js    # SMTP wrapper
+├── consumer/            # Worker background RabbitMQ
+│   ├── index.js         # Titik masuk
+│   ├── Listener.js      # Konsumer antrean
+│   ├── MailSender.js    # Wrapper SMTP
 │   ├── application.service.js
 │   ├── interview-reminder.service.js
 │   └── shared/          # rabbitmq, realtime, logger
-├── ats/                 # ML-powered ATS scoring
-│   ├── flaskApi/        # Flask API server
-│   ├── Modelling/       # Training & prediction
-│   ├── Preprocessing/   # Text cleaning
-│   ├── notebooks/       # Jupyter experiments
+├── ats/                 # Scoring ATS berbasis ML
+│   ├── flaskApi/        # Server API Flask
+│   ├── Modelling/       # Pelatihan & prediksi
+│   ├── Preprocessing/   # Pembersihan teks
+│   ├── notebooks/       # Eksperimen Jupyter
 │   └── dataset/
-└── docker-compose.yml   # Full-stack orchestration
+└── docker-compose.yml   # Orkestrasi full-stack
 ```
 
-## Scripts
+## Perintah
 
-| Command                   | Description                     |
-|---------------------------|---------------------------------|
-| `docker compose up -d`    | Start all services              |
-| `docker compose down`     | Stop all services               |
-| `cd api && npm test`      | Run API test suite (Vitest)     |
-| `cd api && npm run lint`  | Lint API (ESLint)               |
-| `cd api && npm run seed`  | Seed demo data                  |
-| `cd api && npm run migrate:up` | Run DB migrations        |
-| `cd ui && npm run build`  | Build UI for production         |
+| Perintah                      | Deskripsi                          |
+|-------------------------------|------------------------------------|
+| `docker compose up -d`        | Jalankan semua layanan             |
+| `docker compose down`         | Hentikan semua layanan             |
+| `cd api && npm test`          | Jalankan suite test API (Vitest)   |
+| `cd api && npm run lint`      | Lint API (ESLint)                  |
+| `cd api && npm run seed`      | Seed data demo                     |
+| `cd api && npm run migrate:up`| Jalankan migrasi DB                |
+| `cd ui && npm run build`      | Build UI untuk produksi            |
 
 ## CI/CD
 
-GitHub Actions pipeline (`.github/workflows/ci.yml`) runs on push to `main`/`develop`:
+Pipeline GitHub Actions (`.github/workflows/ci.yml`) berjalan saat push ke `main`/`develop`:
 
 1. **API** — Lint & test
 2. **UI** — Lint
-3. **API Docker** — Build verification
-4. **UI Docker** — Build verification
+3. **API Docker** — Verifikasi build
+4. **UI Docker** — Verifikasi build
 
-## Environment Variables
+## Variabel Lingkungan
 
-See [`api/.env.example`](api/.env.example) for the full list. Key sections:
+Lihat [`api/.env.example`](api/.env.example) untuk daftar lengkap. Bagian utama:
 
-| Group     | Variables                                                     |
+| Grup      | Variabel                                                      |
 |-----------|---------------------------------------------------------------|
 | Database  | `PGHOST`, `PGPORT`, `PGDATABASE`, `PGUSER`, `PGPASSWORD`     |
 | Redis     | `REDIS_HOST`, `REDIS_PORT`, `REDIS_PASSWORD`                  |
@@ -181,6 +181,6 @@ See [`api/.env.example`](api/.env.example) for the full list. Key sections:
 | ATS       | `ATS_ML_API_URL`, `ATS_ML_API_KEY`                           |
 | Firebase  | `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY` |
 
-## License
+## Lisensi
 
 ISC

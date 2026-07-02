@@ -26,6 +26,14 @@ vi.mock("../src/security/token-manager.js", () => ({
   },
 }));
 
+vi.mock("../src/cache/redis.service.js", () => {
+  const mockCache = { set: vi.fn(), get: vi.fn(), delete: vi.fn() };
+  return {
+    default: vi.fn(() => mockCache),
+    closeCacheService: vi.fn(),
+  };
+});
+
 vi.mock("../src/users/user.repository.js", () => ({
   default: {
     getUserById: vi.fn(() => ({ id: "user-123", role: "jobseeker" })),

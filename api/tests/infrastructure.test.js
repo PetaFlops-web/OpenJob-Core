@@ -15,7 +15,13 @@ describe("Infrastructure Services", () => {
         socket: {
           host: process.env.REDIS_HOST || "localhost",
           port: process.env.REDIS_PORT || 6379,
+          connectTimeout: 3000,
+          reconnectStrategy: (retries) => {
+            if (retries >= 2) return new Error("Redis reconnect limit reached");
+            return Math.min(retries * 200, 1000);
+          },
         },
+        password: process.env.REDIS_PASSWORD || undefined,
       });
       redisClient.on("error", (err) => logger.error("Redis error:", err));
       await redisClient.connect();
