@@ -1,4 +1,4 @@
-import { describe, it, expect, afterAll } from "vitest";
+import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import amqp from "amqplib";
 import { createClient } from "redis";
 import CacheService, { closeCacheService } from "../src/cache/redis.service.js";
