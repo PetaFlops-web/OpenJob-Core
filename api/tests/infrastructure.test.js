@@ -273,7 +273,6 @@ describe("Infrastructure Services", () => {
     });
 
     it("should consume and ack a message correctly", async () => {
-      if (!rabbitAvailable) return it.skip();
       const queueName = `app_consumer_ack_test_${Date.now()}`;
       const testPayload = { application_id: "app-test-123" };
 
