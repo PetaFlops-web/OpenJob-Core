@@ -23,8 +23,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: npm
-          cache-dependency-path: api/package-lock.json
 
       - run: npm ci --ignore-scripts
       - run: npm run lint
@@ -43,8 +41,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: npm
-          cache-dependency-path: ui/package-lock.json
 
       - run: npm ci --ignore-scripts
       - run: npm run lint
@@ -59,9 +55,8 @@ jobs:
       - uses: docker/build-push-action@v6
         with:
           context: ./api
+          file: ./api/Dockerfile
           push: false
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
 
   # ── UI Docker build check ───────────────────────────────
   ui-docker:
@@ -73,6 +68,5 @@ jobs:
       - uses: docker/build-push-action@v6
         with:
           context: ./ui
+          file: ./ui/Dockerfile
           push: false
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
