@@ -22,7 +22,7 @@ from torch.utils.data import DataLoader, TensorDataset
 from Modelling.regression_head import RegressionHead
 
 EMBEDDING_MODEL = "paraphrase-multilingual-MiniLM-L12-v2"
-RANDOM_STATE = 42  # matches notebook
+RANDOM_STATE = 42  
 
 
 def _set_seed() -> None:
@@ -59,7 +59,7 @@ def train(
     device = torch.device(device_str if torch.cuda.is_available() else "cpu")
     _set_seed()
 
-    # ── Load & embed ──────────────────────────────────────────
+    # Load & embed
     print(f"Loading data from {data_path}")
     df = _load_data(data_path, max_rows)
     print(f"  rows  = {len(df)}")
@@ -71,7 +71,7 @@ def train(
     print(f"Embedding {len(texts)} texts with {EMBEDDING_MODEL} ...")
     embeddings = embedder.encode(texts, batch_size=batch_size, show_progress_bar=True, convert_to_numpy=True)
 
-    # ── Tensors & split ───────────────────────────────────────
+    # Tensors & split
     X = torch.tensor(embeddings, dtype=torch.float32)
     y = torch.tensor(df["ats_score"].values, dtype=torch.float32).unsqueeze(1)
 
@@ -87,13 +87,13 @@ def train(
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
-    # ── Model ─────────────────────────────────────────────────
+    # Model
     input_dim = embeddings.shape[1]
     model = RegressionHead(input_dim=input_dim, hidden_dim=128).to(device)
     criterion = nn.MSELoss()
     optimizer = torch.optim.AdamW(model.parameters(), lr=lr, weight_decay=1e-4)
 
-    # ── Training loop ─────────────────────────────────────────
+    # Training loop
     train_losses: list[float] = []
     test_losses: list[float] = []
     all_preds: list[float] = []
@@ -130,12 +130,12 @@ def train(
         all_preds = epoch_preds
         all_targets = epoch_targets
 
-    # ── Metrics ───────────────────────────────────────────────
+    # Metrics
     mae = float(mean_absolute_error(all_targets, all_preds))
     rmse = float(root_mean_squared_error(all_targets, all_preds))
     print(f"  Final: MAE={mae:.2f} | RMSE={rmse:.2f}")
 
-    # ── Save model ────────────────────────────────────────────
+    # Save model
     model_output.parent.mkdir(parents=True, exist_ok=True)
     bundle = {
         "model_state_dict": {k: v.cpu() for k, v in model.state_dict().items()},
