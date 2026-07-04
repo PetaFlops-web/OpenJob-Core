@@ -1,13 +1,3 @@
-"""ATS Scoring API — versioned, JSON-only contract for backend consumption.
-
-Endpoints:
-    GET  /api/v1/ats/health       → service health
-    GET  /api/v1/ats/model        → model metadata
-    POST /api/v1/ats/analyze      → upload PDF CV + optional skills and job_summary → ATS score
-
-Every response has `success` (bool) + `data` or `error`. Status codes are semantic.
-"""
-
 from __future__ import annotations
 
 import io
@@ -63,9 +53,7 @@ def _get_predictor() -> ATSPredictor:
     return _predictor
 
 
-# ── Endpoints ──────────────────────────────────────────────────────────────
-
-
+# Endpoints
 @app.route("/api/v1/ats/health")
 def health():
     try:
@@ -92,7 +80,7 @@ def analyze():
     if not filename.endswith(".pdf"):
         return _err("Only PDF files are accepted", 415)
 
-    # ── read CV, enforce size limit ─────────────────────────────────────
+    # read CV, enforce size limit
     raw = file.read()
     if len(raw) > _MAX_CV_BYTES:
         return _err(f"File exceeds maximum size of {_MAX_CV_BYTES // (1024 * 1024)} MB", 413)
@@ -114,7 +102,7 @@ def analyze():
         skills = (request.form.get("skills") or "").strip()
         job_summary = (request.form.get("job_summary") or "").strip()
 
-    # --- predict ---
+    # predict
     predictor = _get_predictor()
     try:
         if skills:
