@@ -1,15 +1,3 @@
-"""Inference utilities for the MiniLM ATS scoring model.
-
-Usage:
-    from Modelling import ATSPredictor
-
-    predictor = ATSPredictor("Modelling/models/minilm_regressor.pkl")
-    score = predictor.predict_skills_job(
-        candidate_skills="Python, FastAPI, PostgreSQL",
-        job_summary="Backend engineer with Python experience",
-    )
-"""
-
 from __future__ import annotations
 
 import pickle
