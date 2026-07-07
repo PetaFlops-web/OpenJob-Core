@@ -2,6 +2,9 @@
 
 Express 5 REST API for a job portal: jobseeker/recruiter auth, companies, jobs, applications, documents/CV, ATS scoring, interviews, notifications, bookmarks, skills, Redis cache, RabbitMQ events, and Docker runtime.
 
+## Live API Documentation
+* **Interactive Swagger UI**: [Open-Job API v1.0.0](https://app.swaggerhub.com/apis-docs/student-8c9/open-job-api/1.0.0?view=uiDocs)
+
 ## Requirements
 
 - Node.js 24+
@@ -26,6 +29,7 @@ API defaults:
 - API: `http://localhost:3000`
 - Swagger: `http://localhost:3000/docs`
 - Health: `http://localhost:3000/health`
+- SwaggerHub: `https://app.swaggerhub.com/apis-docs/student-8c9/open-job-api/1.0.0?view=uiDocs`
 
 ## Environment
 
