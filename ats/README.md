@@ -1,18 +1,18 @@
 # ATS CV Analyzer
 
-API untuk mengekstraksi teks dari CV berformat PDF dan memprediksi skor ATS (_Applicant Tracking System_) menggunakan model **MiniLM** berbasis NLP.
+An API for extracting text from PDF resumes and predicting Applicant Tracking System (ATS) scores using an NLP-based **MiniLM** model.
 
 API documentation: [SwaggerHub — ATS Predictor API](https://app.swaggerhub.com/apis-docs/student-8c9/ats-predictor-api/1.0.0?view=uiDocs)
 
 ---
 
-## Arsitektur Proyek
+## Project Architecture
 
-```
+```text
 ats/
 ├── flaskApi/              # REST API (Flask + Flasgger)
 │   ├── app.py             #   Entry point: routes, parsing, serving
-│   └── requirements.txt   #   Dependensi API
+│   └── requirements.txt   #   API dependencies
 ├── Modelling/             # Model training & inference
 │   ├── predictor.py       #   ATSPredictor: load model, predict
 │   ├── regression_head.py #   MLP regression head (384→128→64→1)
@@ -22,20 +22,20 @@ ats/
 │   └── __init__.py
 ├── Preprocessing/         # NLP text preprocessing
 │   ├── text_preprocessing.py  #   Case folding, tokenization, stopword removal, stemming
-│   ├── clean_dataset.py       #   CSV cleaner: add kolom *_clean ke dataset
+│   ├── clean_dataset.py       #   CSV cleaner: add *_clean columns to the dataset
 │   └── __init__.py
-├── notebooks/             # Eksperimen & training notebook
+├── notebooks/             # Experiment & training notebooks
 │   ├── ats_scanning_model_experiment.ipynb
 │   └── models/
 │       └── minilm_regressor.pkl
 ├── dataset/               # Dataset (CSV)
 ├── Dockerfile             # Docker build
-└── requirements.txt       # Dependensi global
+└── requirements.txt       # Global dependencies
 ```
 
-### Alur Data
+### Data Flow
 
-```
+```text
 ┌───────────┐     ┌────────────────┐     ┌─────────────────┐     ┌──────────────┐
 │  CV PDF   │────▶│  PDF → text    │────▶│  Preprocessing   │────▶│  MiniLM      │
 │ (upload)  │     │  (pypdf)       │     │  (case fold,     │     │  embed       │
@@ -56,51 +56,51 @@ ats/
 
 ### Model
 
-- **Embedder**: `paraphrase-multilingual-MiniLM-L12-v2` (SentenceTransformers) — frozen, tidak dilatih ulang.
-- **Regression Head**: MLP 3-layer (`384 → 128 → 64 → 1`) dengan ReLU + Dropout.
-- **Output**: skor ATS dalam rentang 0–100.
-- Model disimpan sebagai pickle bundle yang berisi: `embedding_model`, `input_dim`, `hidden_dim`, `model_state_dict`.
+- **Embedder**: `paraphrase-multilingual-MiniLM-L12-v2` (SentenceTransformers) — frozen, not retrained.
+- **Regression Head**: 3-layer MLP (`384 → 128 → 64 → 1`) with ReLU + Dropout.
+- **Output**: ATS score ranging from 0 to 100.
+- The model is saved as a pickle bundle containing: `embedding_model`, `input_dim`, `hidden_dim`, `model_state_dict`.
 
 ### Preprocessing
 
-Pipeline preprocessing tekstual (konsisten dengan notebook eksperimen):
+Textual preprocessing pipeline (consistent with the experiment notebooks):
 
-1. **Case folding** — lowercase
-2. **Remove punctuation** — hanya menyisakan `[a-zA-Z0-9+#.]`
-3. **Tokenize** — regex `[a-zA-Z0-9+#]+`
-4. **Remove stopwords** — English stopwords + token 1 karakter
-5. **Stemming** — suffix stripping sederhana (`ing`, `ly`, `ment`, dll.)
+1. **Case folding** — converting text to lowercase.
+2. **Remove punctuation** — keeping only `[a-zA-Z0-9+#.]`.
+3. **Tokenize** — using regex `[a-zA-Z0-9+#]+`.
+4. **Remove stopwords** — English stopwords + 1-character tokens.
+5. **Stemming** — simple suffix stripping (`ing`, `ly`, `ment`, etc.).
 
 ---
 
 ## API Endpoints
 
-| Method | Endpoint              | Deskripsi                                  |
+| Method | Endpoint              | Description                                |
 |--------|-----------------------|--------------------------------------------|
-| `GET`  | `/api/v1/ats/health`  | Cek status API & model                     |
-| `GET`  | `/api/v1/ats/model`   | Metadata model (nama, versi, arsitektur)   |
-| `POST` | `/api/v1/ats/analyze` | Upload CV PDF + skills + job summary → skor ATS |
+| `GET`  | `/api/v1/ats/health`  | Check API & model health status            |
+| `GET`  | `/api/v1/ats/model`   | Model metadata (name, version, architecture)|
+| `POST` | `/api/v1/ats/analyze` | Upload CV PDF + skills + job summary → ATS score |
 
-Swagger UI tersedia di `/apidocs/` saat server berjalan.
+Swagger UI is available at `/apidocs/` when the server is running.
 
-Lihat [SwaggerHub](https://app.swaggerhub.com/apis-docs/student-8c9/ats-predictor-api/1.0.0?view=uiDocs) untuk spesifikasi lengkap request/response.
+See [SwaggerHub](https://app.swaggerhub.com/apis-docs/student-8c9/ats-predictor-api/1.0.0?view=uiDocs) for complete request/response specifications.
 
 ---
 
-## Menjalankan Proyek
+## Running the Project
 
-### Prasyarat
+### Prerequisites
 
 - Python 3.11+
-- Disk ~3 GB (untuk cache model SentenceTransformer)
+- ~3 GB of disk space (for SentenceTransformer model cache)
 
-### 1. Install dependensi
+### 1. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. Preprocessing dataset (opsional)
+### 2. Dataset preprocessing (optional)
 
 ```bash
 python Preprocessing/clean_dataset.py \
@@ -109,7 +109,7 @@ python Preprocessing/clean_dataset.py \
   --chunksize 1000
 ```
 
-### 3. Training model (opsional)
+### 3. Model training (optional)
 
 ```bash
 python Modelling/train_minilm_regressor.py \
@@ -121,15 +121,15 @@ python Modelling/train_minilm_regressor.py \
   --device cpu
 ```
 
-Untuk _sanity check_ cepat, tambahkan `--max-rows 500`.
+For a quick sanity check, append `--max-rows 500` to the command.
 
-### 4. Menjalankan API
+### 4. Running the API
 
 ```bash
 python flaskApi/app.py
 ```
 
-Server berjalan di `http://0.0.0.0:5000`. Swagger UI di `http://0.0.0.0:5000/apidocs/`.
+The server runs at `http://0.0.0.0:5000`. Swagger UI is available at `http://0.0.0.0:5000/apidocs/`.
 
 ### 5. Docker
 
@@ -140,9 +140,9 @@ docker run -p 5000:5000 ats-api
 
 ---
 
-## Catatan
+## Notes
 
-- Model di-load sekali saat startup (lazy, pada request pertama ke `/health`).
-- Ukuran file CV dibatasi **10 MB**.
-- Hanya file **PDF** yang diterima.
-- Pretrained MiniLM akan otomatis diunduh dari HuggingFace Hub saat pertama kali dijalankan (~500 MB, disimpan di `~/.cache/huggingface`).
+- The model is loaded once during startup (lazy loading, upon the first request to `/health`).
+- CV file size is limited to **10 MB**.
+- Only **PDF** files are accepted.
+- The pretrained MiniLM model will be automatically downloaded from the HuggingFace Hub on the first run (~500 MB, saved in `~/.cache/huggingface`).
